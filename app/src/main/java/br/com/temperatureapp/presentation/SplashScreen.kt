@@ -35,6 +35,7 @@ fun SplashScreen(navController: NavController){
             )
         )
         delay(3000L)
+        navController.popBackStack()
         navController.navigate("home_screen")
     }
 

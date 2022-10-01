@@ -40,7 +40,7 @@ fun HomeContent(
     viewModel: HomeViewModel,
     nav: NavController
 ){
-    val thermometer = viewModel.thermometer.collectAsState(initial = Temperature(0,"",0f,0f,"",""))
+    val thermometer = viewModel.thermometer.collectAsState(initial = Temperature(0,"blank",0f,0f,"01/01/01","00:00:00"))
     var mainTem by remember{ mutableStateOf(true) }
     Column(
         modifier = Modifier
