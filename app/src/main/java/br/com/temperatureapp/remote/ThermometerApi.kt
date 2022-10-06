@@ -24,8 +24,12 @@ interface ThermometerService{
     @GET("temperatura/{id}")
     suspend fun getTemp(@Path("id")id: Int): TemperatureDto
 
-    @GET("temperatura/{id}/2021-01-01 01:01:01/to/2023-01-01 01:01:01")
-    suspend fun getAllTemp(@Path("id")id: Int): List<TemperatureDto>
+    @GET("temperatura/{id}/{initial}/to/{final}")
+    suspend fun getAllTemp(
+        @Path("id")id: Int,
+        @Path("initial")initial: String,
+        @Path("final")final: String
+    ): List<TemperatureDto>
 }
 
 object ThermometerApi{
