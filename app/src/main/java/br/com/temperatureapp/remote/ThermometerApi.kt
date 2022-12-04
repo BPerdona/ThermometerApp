@@ -21,8 +21,10 @@ private val retrofit = Retrofit.Builder()
 
 interface ThermometerService{
 
-    @GET("lastTemp")
-    suspend fun getTemp(): TemperatureDto
+    @GET("{id}/lastTemp")
+    suspend fun getTemp(
+        @Path("id")id: Int,
+    ): TemperatureDto
 
     @GET("tempIn/{initial}/{final}")
     suspend fun getIntervalTemp(

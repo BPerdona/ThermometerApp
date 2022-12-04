@@ -41,6 +41,7 @@ fun HomeContent(
     nav: NavController
 ){
     val thermometer = viewModel.thermometer.collectAsState(initial = Temperature(0f, 0f, "", ""))
+    val sensor by viewModel.currentDevice.collectAsState(initial = 1)
     var mainTem by remember{ mutableStateOf(true) }
     Column(
         modifier = Modifier
@@ -52,7 +53,8 @@ fun HomeContent(
             horizontalArrangement = Arrangement.Center
         ) {
            Text(
-               text = "Sensor",
+               modifier = Modifier.clickable { viewModel.altDevice() },
+               text = "Sensor: $sensor",
                color = Color.White,
                style = MaterialTheme.typography.h4.copy(
                    color = Color.White, fontWeight= FontWeight.Bold
@@ -66,7 +68,11 @@ fun HomeContent(
         ) {
             Box(
                 modifier = Modifier
-                    .border(width = 3.dp, color = colorPicker(thermometer.value.temperatura), shape = CircleShape)
+                    .border(
+                        width = 3.dp,
+                        color = colorPicker(thermometer.value.temperatura),
+                        shape = CircleShape
+                    )
                     .clip(CircleShape)
                     .size(150.dp)
                     .background(Color(0xff344655)),
@@ -91,7 +97,11 @@ fun HomeContent(
             }
             Box(
                 modifier = Modifier
-                    .border(width = 3.dp, color = colorPicker(thermometer.value.temperatura), shape = CircleShape)
+                    .border(
+                        width = 3.dp,
+                        color = colorPicker(thermometer.value.temperatura),
+                        shape = CircleShape
+                    )
                     .clip(CircleShape)
                     .size(150.dp)
                     .background(Color(0xff344655)),
@@ -122,7 +132,11 @@ fun HomeContent(
         ) {
             Box(
                 modifier = Modifier
-                    .border(width = 6.dp, color = colorPicker(thermometer.value.temperatura), shape = CircleShape)
+                    .border(
+                        width = 6.dp,
+                        color = colorPicker(thermometer.value.temperatura),
+                        shape = CircleShape
+                    )
                     .clip(CircleShape)
                     .size(260.dp)
                     .background(Color(0xff344655))

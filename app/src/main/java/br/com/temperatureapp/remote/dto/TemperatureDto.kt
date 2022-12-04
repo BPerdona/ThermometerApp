@@ -4,7 +4,7 @@ import br.com.temperatureapp.domain.Temperature
 
 data class TemperatureDto(
     val temperature: Float,
-    val moisture: Float,
+    val humidity: Float,
     val date: String,
     val time: String,
 )
@@ -12,7 +12,7 @@ data class TemperatureDto(
 fun TemperatureDto.toDomain(): Temperature{
     return Temperature (
         temperatura = this.temperature,
-        umidade = this.moisture,
+        umidade = this.humidity,
         data = this.date,
         horario = this.time.substring(0,8)
     )
