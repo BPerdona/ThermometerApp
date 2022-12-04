@@ -40,7 +40,7 @@ fun HomeContent(
     viewModel: HomeViewModel,
     nav: NavController
 ){
-    val thermometer = viewModel.thermometer.collectAsState(initial = Temperature(0,"blank",0f,0f,"01/01/01","00:00:00"))
+    val thermometer = viewModel.thermometer.collectAsState(initial = Temperature(0f, 0f, "", ""))
     var mainTem by remember{ mutableStateOf(true) }
     Column(
         modifier = Modifier
@@ -52,7 +52,7 @@ fun HomeContent(
             horizontalArrangement = Arrangement.Center
         ) {
            Text(
-               text = thermometer.value.localizacao,
+               text = "Sensor",
                color = Color.White,
                style = MaterialTheme.typography.h4.copy(
                    color = Color.White, fontWeight= FontWeight.Bold

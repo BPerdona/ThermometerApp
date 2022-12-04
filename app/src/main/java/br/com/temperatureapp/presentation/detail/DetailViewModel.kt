@@ -2,29 +2,38 @@ package br.com.temperatureapp.presentation.detail
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.temperatureapp.domain.Temperature
 import br.com.temperatureapp.remote.ThermometerApi
-import br.com.temperatureapp.remote.dto.toDomain
+import br.com.temperatureapp.remote.dto.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class DetailViewModel(): ViewModel() {
 
-    private val _values = flow {
-       while (true) {
-           try {
-               emit(ThermometerApi.service.getAllTemp(1,"$inicial 01:01:01","$final 01:01:01").toDomain())
-           } catch (e: Exception) {
-               Log.e("flow", "Erro ao consumir lista com paramentros $inicial e $final\nError: ${e.message}")
-           }
-           delay(500L)
-       }
+    init {
+        viewModelScope.launch {
+            val apiValue = ThermometerApi.service.allTemp().toDomain()
+            _values.emit(apiValue)
+        }
     }
-    val values = _values
+
+    private val _values = MutableStateFlow(listOf<Temperature>())
+    val values = _values.asStateFlow()
+
     private var inicial = "2000-01-01"
     private var final = "2000-01-01"
 
     fun setFilter(inicial: String, final: String){
         this.inicial=inicial
         this.final=final
+        viewModelScope.launch {
+            val apiValue = ThermometerApi.service.getIntervalTemp(
+                inicial,
+                final
+            ).toDomain()
+            _values.emit(apiValue)
+        }
     }
 }

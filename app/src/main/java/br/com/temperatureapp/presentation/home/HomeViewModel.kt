@@ -12,12 +12,13 @@ class HomeViewModel(): ViewModel() {
     private val _thermometer = flow{
         while (true){
             try{
-                val aux = ThermometerApi.service.getTemp(1)
+                val aux = ThermometerApi.service.getTemp()
                 emit(aux.toDomain())
             }catch (e: Exception){
-                Log.e("flow", "Erro ao conectar API")
+                Log.e("flow", "Erro ao conectar API: ${e.message}")
+                e.printStackTrace()
             }
-            delay(500L)
+            delay(2500L)
         }
     }
     val thermometer = _thermometer

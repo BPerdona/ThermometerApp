@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-private const val BASE_URL = "http://10.0.2.2:8080"
+private const val BASE_URL = "http://perdona.pythonanywhere.com/api/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -21,15 +21,17 @@ private val retrofit = Retrofit.Builder()
 
 interface ThermometerService{
 
-    @GET("temperatura/{id}")
-    suspend fun getTemp(@Path("id")id: Int): TemperatureDto
+    @GET("lastTemp")
+    suspend fun getTemp(): TemperatureDto
 
-    @GET("temperatura/{id}/{initial}/to/{final}")
-    suspend fun getAllTemp(
-        @Path("id")id: Int,
+    @GET("tempIn/{initial}/{final}")
+    suspend fun getIntervalTemp(
         @Path("initial")initial: String,
         @Path("final")final: String
     ): List<TemperatureDto>
+
+    @GET("allTemp")
+    suspend fun allTemp(): List<TemperatureDto>
 }
 
 object ThermometerApi{

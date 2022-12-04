@@ -230,8 +230,6 @@ private fun TemperatureCard(temp: Temperature){
                         .padding(6.dp)
                         .weight(0.45f)
                 ) {
-
-                    Text(text = "Sensor: ${temp.sensorId}", style = style)
                     Text(text = "Temperatura: ${temp.temperatura}", style = style)
                     Text(text = "Data: ${temp.data}", style = style)
                 }
@@ -240,7 +238,6 @@ private fun TemperatureCard(temp: Temperature){
                         .padding(6.dp)
                         .weight(0.55f)
                 ) {
-                    Text(text = "Local: ${temp.localizacao}", style = style)
                     Text(text = "Umidade: ${temp.umidade}", style = style)
                     Text(text = "Hora: ${temp.horario}", style = style)
                 }
